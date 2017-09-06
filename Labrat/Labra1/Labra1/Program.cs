@@ -19,10 +19,14 @@ namespace Labra1
             Console.WriteLine(4 + " AgeGroup");
             Console.WriteLine(5 + " SecondsToHMS");
             Console.WriteLine(6 + " FuelCalculator");
+            Console.WriteLine(7 + " LeapYear");
 
-            menuSelector = System.Convert.ToInt32(int.Parse(Console.ReadLine()));
-
-
+            bool isGood = int.TryParse(Console.ReadLine(), out menuSelector); // estää huonojen arvojen syöttämisen.
+            if (isGood == false) {
+                Console.WriteLine("Huono arvo");
+                Menu();
+            }
+            Console.WriteLine("Valitsit: "+menuSelector);
 
 
             switch (menuSelector)
@@ -55,6 +59,10 @@ namespace Labra1
 
                 case 6:
                     Teht6.FuelCalculator();
+                    break;
+
+                case 7:
+                    Teht7.LeapYear();
                     break;
             }
             Console.WriteLine("Paina mitä vain näppäintä");

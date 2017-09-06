@@ -51,6 +51,7 @@
     <Compile Include="Teht4.cs" />
     <Compile Include="Teht5.cs" />
     <Compile Include="Teht6.cs" />
+    <Compile Include="Teht7.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
