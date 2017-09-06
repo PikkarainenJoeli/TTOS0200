@@ -35,7 +35,8 @@ namespace Hello
                 {
                     System.Console.WriteLine("You lose.");
                 }
-                DrawBlackjack();
+                DrawBlackjack(); // kutsutaan uudestaan jos pelattiin onnistuneesti
+                                    // tähän kutsuun ei päästä jos numero on "huono"
             }
         }
     }
