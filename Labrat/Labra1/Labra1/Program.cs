@@ -20,6 +20,10 @@ namespace Labra1
             Console.WriteLine(5 + " SecondsToHMS");
             Console.WriteLine(6 + " FuelCalculator");
             Console.WriteLine(7 + " LeapYear");
+            Console.WriteLine(8 + " BiggestNum");
+            Console.WriteLine(9 + " Summing");
+            Console.WriteLine(10 + " Evens");
+            Console.WriteLine(11 + " Starts");
 
             bool isGood = int.TryParse(Console.ReadLine(), out menuSelector); // estää huonojen arvojen syöttämisen.
             if (isGood == false) {
@@ -63,6 +67,22 @@ namespace Labra1
 
                 case 7:
                     Teht7.LeapYear();
+                    break;
+
+                case 8:
+                    Teht8.BiggestNum();
+                    break;
+
+                case 9:
+                    Teht9.Summing();
+                    break;
+
+                case 10:
+                    Teht10.Evens();
+                    break;
+
+                case 11:
+                    Teht11.Stars();
                     break;
             }
             Console.WriteLine("Paina mitä vain näppäintä");
