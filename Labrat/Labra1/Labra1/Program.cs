@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace Labra1
 {
+    /*
+     Joeli Pikkarainen H8897 TTV15S4 
+     olioihjelmoinni harjoituksia.
+     */
+     
     class Labra1
     {
-        public static void Menu()
+        public  static void Menu()
         {
             int menuSelector;
             Console.Clear();
@@ -24,12 +29,20 @@ namespace Labra1
             Console.WriteLine(9 + " Summing");
             Console.WriteLine(10 + " Evens");
             Console.WriteLine(11 + " Starts");
+            Console.WriteLine(12 + " ReversedArary");
+            Console.WriteLine(13 + " SkiJumpScore");
+            Console.WriteLine(14 + " CourseStars");
+            Console.WriteLine(15 + " DrawTree");
+            Console.WriteLine(16 + " GuessRandom");
+            Console.WriteLine(17 + " SortArrays");
+            Console.WriteLine(18 + " Palindrom");
+            Console.WriteLine(19 + " HangMan");
+            Console.WriteLine(20 + " Snake");
 
-            bool isGood = int.TryParse(Console.ReadLine(), out menuSelector); // estää huonojen arvojen syöttämisen.
-            if (isGood == false) {
-                Console.WriteLine("Huono arvo");
-                Menu();
-            }
+            bool GoodInt;
+            while (GoodInt = int.TryParse(Console.ReadLine(), out menuSelector) == false) ;
+            // estää huonojen arvojen syöttämisen.
+            
             Console.WriteLine("Valitsit: "+menuSelector);
 
 
@@ -84,6 +97,43 @@ namespace Labra1
                 case 11:
                     Teht11.Stars();
                     break;
+
+                case 12:
+                    Teht12.ReversedArray();
+                    break;
+
+                case 13:
+                    Teht13.SkiJumpScore();
+                    break;
+
+                case 14:
+                    Teht14.CourseStars();
+                    break;
+
+                case 15:
+                    Teht15.DrawTree();
+                    break;
+
+                case 16:
+                    Teht16.GuessRandom();
+                    break;
+
+                case 17:
+                    Teht17.SortArrays();
+                    break;
+
+                case 18:
+                    Teht18.Palindrom();
+                    break;
+
+                case 19:
+                    Teht19.HangMan();
+                    break;
+
+                case 20:
+                    Teht20.Snake();
+                    break;
+
             }
             Console.WriteLine("Paina mitä vain näppäintä");
             Console.ReadLine();

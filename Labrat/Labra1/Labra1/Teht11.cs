@@ -11,11 +11,21 @@ namespace Labra1
         public static void Stars()
         {
             int stars;
-            Console.WriteLine("Anna numerot");
-
+            Console.WriteLine("Anna tähtien määrä: ");
             stars = int.Parse(Console.ReadLine());
 
+            for(int i = 0; i < stars; i++)
+            {
+                
 
+               for(int j = 0; j < i + 1; j++)
+                {
+                    Console.Write("*");
+                }
+
+                Console.WriteLine("");
+               
+            }
 
         }
     }
