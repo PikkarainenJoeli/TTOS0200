@@ -79,8 +79,8 @@ namespace Labra1
             TimeElapsed = 0;
             //initialisoi peli
             bool Alive = true;
-            currentHor = 2;
-            currentVert = 4;
+            currentHor = 0;
+            currentVert = 0;
 
             System.Timers.Timer timer = new System.Timers.Timer(200);
              timer.Enabled = true;
@@ -111,7 +111,14 @@ namespace Labra1
             int round = 0;
             int score = 0;
             int y = 0;
-            area[6, 7] = 'o';
+            area[0, 3] = 'o';
+
+
+            //empty needed
+            OldY.Add(0);
+            OldX.Add(0);
+
+
             while (Alive)
             {
                 //round++;
@@ -151,18 +158,11 @@ namespace Labra1
                     dirString = "Left";
                   //  Console.WriteLine("LEFT");
                 }
-                
+
                 if (TimeElapsed > 0.1)//_________________________________________________________________________________________________
                 {
                     t.Reset();
                     TimeElapsed = 0;
-
-                    
-                    Console.WriteLine("current"+currentVert+" "+currentHor);
-                    //[rivi,sarake]
-                    //[]
-
-                    area[currentVert, currentHor] = 'x';
 
                     if(area[currentVert + vert, currentHor + hor] == 'o')
                     {
@@ -172,56 +172,37 @@ namespace Labra1
                         area[NewScoreVert, NewScoreVert] = 'o';
                     }
                     //drew current head space
-
                     area[currentVert + vert,currentHor + hor] = '■';
 
                     currentVert = currentVert + vert;
                     currentHor = currentHor + hor;
 
 
-                    OldY.Add(currentVert);
-                    OldX.Add(currentHor);
                     oldSpaces[y, 0] = currentVert;
                     oldSpaces[y, 1] = currentHor;
 
-                    OldY.Add(currentVert);
-                    OldX.Add(currentHor);
-                    for (int i = 0; i < score; i++)
-                    {
-                        //area[currentVert, currentHor] = 'x';
-                       
+                   OldY.Add(currentVert);
+                   OldX.Add(currentHor);
 
-                        for(int j = 0; j < score; j++) {//make head
-                            Console.WriteLine("J:" +j+"index"+OldY.ElementAt(OldY.Count - 1) +" "+ OldX.ElementAt(OldX.Count - 1));
-                            //Console.WriteLine((area[oldSpaces[y, 0] - vert, oldSpaces[y, 1] - hor]));
-                            //Console.WriteLine(area[oldSpaces[y, 0] - vert, oldSpaces[y, 1] - hor]);
-                            area[OldY.ElementAt(OldY.Count-1), OldX.ElementAt(OldX.Count-1)] = 'P';
-                            area[OldX.ElementAt(OldY.Count - score - 1), OldX.ElementAt(OldX.Count - score - 1)] = 'x';
+                    area[OldY.ElementAt(y-score), OldX.ElementAt(y-score)] = 'x';
+                  
 
-                            Console.WriteLine("to x:" + OldX.ElementAt(OldY.ElementAt(score) - score) + " " + OldX.ElementAt(OldX.ElementAt(score) - score));
-                            
-                           
-                            //Console.ReadLine();
-                        }
+                  
 
-                        //area[oldSpaces[y, 0]-vert, oldSpaces[y, 1]-hor] = '■';
-                    }
+             
 
                     display(area,dirString);
-                    
-                    
-                    //Console.WriteLine("ver:"+vert + "hor:"+hor+"score"+score);
+           
                     Console.WriteLine(currentVert + " " + currentHor);
-                    //Console.WriteLine(area[oldSpaces[y, 0] - vert, oldSpaces[y, 1] - hor]);
+                    Console.Write("oldY:"+OldY[OldY.Count-1]);
+                    Console.Write(" oldX:"+OldX[OldX.Count-1]);
+                    Console.WriteLine(" Score:" +score);
 
-                    for(int i = 0; i < y; i++)
-                     {
-                         Console.Write(" "+OldY[i]);
-                         Console.Write(OldX[i]);
-                     }
+                    Console.Write("To delete: Y:" + OldY.ElementAt(y)+" X:" + OldX.ElementAt(y)+" Y:" + y);
+                    //Console.ReadLine();
                     y++;
                 }
-
+                
 
 
 
