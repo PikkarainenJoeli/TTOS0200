@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
+
+
 
 namespace Labra1
 {
@@ -15,9 +18,18 @@ namespace Labra1
     {
         public  static void Menu()
         {
+
+            //How to list all classes in my assembly
+          /*  string nspace = "Labra1";
+            var q = from t in Assembly.GetExecutingAssembly().GetTypes()
+                    where t.IsClass && t.Namespace == nspace
+                    select t;
+            q.ToList().ForEach(t => Console.WriteLine(t.Name));
+            Console.ReadLine();*/
+
             int menuSelector;
             Console.Clear();
-            Console.WriteLine("Valitse tehtävä numerolla 1-X   0 = Exit");
+            Console.WriteLine("Valitse tehtävä numerolla 1-20   0 = Exit");
             Console.WriteLine(1 + " ShowNumbers");
             Console.WriteLine(2 + " CourseGrade");
             Console.WriteLine(3 + " SumAndAverage");
