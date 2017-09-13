@@ -22,10 +22,9 @@ namespace Labra1
                 //Console.WriteLine(sum);
 
                 number = int.Parse(Console.ReadLine());
-                if (number != 0)
-                {
+         
                     sum += number;
-                }
+                
             }
 
             Console.WriteLine("summa: " + sum);

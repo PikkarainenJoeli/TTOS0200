@@ -71,7 +71,7 @@ namespace Labra1
             currentHor = 5;
             currentVert = 5;
 
-            System.Timers.Timer timer = new System.Timers.Timer(200);
+           System.Timers.Timer timer = new System.Timers.Timer();
              timer.Enabled = true;
              timer.Start();
 
@@ -175,13 +175,14 @@ namespace Labra1
                                     {
                                         NewScoreVert = rnd.Next(0, rows);
                                         NewScoreHort = rnd.Next(0, columns);
-                                    } while (area[NewScoreVert, NewScoreHort] == '■');
+                                    } while (area[NewScoreVert, NewScoreHort] == '█');
+
                         area[NewScoreVert, NewScoreHort] = 'o';
                         //Console.WriteLine("next score at function: " + NewScoreVert + " " + NewScoreHort +"          "+ area[NewScoreVert, NewScoreHort]);
                         //Console.ReadLine();
                     }
 
-                    if (area[currentVert + vert, currentHor + hor] == '■')
+                    if (area[currentVert + vert, currentHor + hor] == '█')
                     {
                         Console.WriteLine("GAME OVER");
                         Console.ReadLine();
@@ -189,7 +190,7 @@ namespace Labra1
                     }
 
                     //draw new head space and remove too much latest tail at index y - score
-                    area[currentVert + vert,currentHor + hor] = '■'; // places of new head
+                    area[currentVert + vert,currentHor + hor] = '█'; // places of new head
 
                    currentVert = currentVert + vert;
                    currentHor = currentHor + hor;
