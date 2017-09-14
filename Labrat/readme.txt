@@ -1,1 +1,1 @@
-Tähän kansionn laitetaan kurssin tehtävät
+Tähän kansioon laitetaan kurssin tehtävät
