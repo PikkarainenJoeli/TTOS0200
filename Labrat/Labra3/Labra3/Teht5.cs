@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,16 +17,12 @@ namespace Labra3
             Student Maisa = new Student();
             Student Ossi = new Student();
             Student Kaisa = new Student();
-
-          
-           
-
-          
-
+       
             Heikki.Name = "Heikki";
             Heikki.ID = "L9201";
             Heikki.Group = "ABC17K1";
             Heikki.GradeAverage = 4.5;
+            Student.names[0] = Heikki.Name;
 
             Maisa.Name = "Maisa";
             Maisa.ID = "L9202";
@@ -41,7 +38,21 @@ namespace Labra3
             Kaisa.ID = "L9205";
             Kaisa.Group = "ABC17K2";
             Kaisa.GradeAverage = 3.9;
+            Console.WriteLine("String "+Student.names[0]);
 
+            List<List<string>> students = new List<List<string>>();
+
+            BindingFlags bindingFlags = BindingFlags.Public |
+                BindingFlags.NonPublic |
+                BindingFlags.Instance |
+                BindingFlags.Static;
+
+            students.Add(new List<string>());
+            foreach (FieldInfo field in typeof(Student).GetFields(bindingFlags))
+            {
+                Console.WriteLine(field.GetValue(Heikki));                   
+                students[0].Add(field.GetValue(Heikki).ToString());
+            }
 
             /*List architecture planned, every student is a list in a list [ID,Name, Group]
              
@@ -50,14 +61,8 @@ namespace Labra3
      Name2
 
             */
-         
 
-            List <List<string>> students = new List <List<string>>();              
-            students.Add(new List<string>());
-            students[0].Add(Heikki.ID);
-            students[0].Add(Heikki.Name);
-            students[0].Add(Heikki.Group);
-            students[0].Add(Heikki.GradeAverage.ToString());
+
                       
             students.Add(new List<string>());
             students[1].Add(Maisa.ID);
@@ -77,8 +82,13 @@ namespace Labra3
             students[3].Add(Kaisa.Group);
             students[3].Add(Kaisa.GradeAverage.ToString());
 
-            //Console.WriteLine(students.Count);
-            //Console.WriteLine(students[0].Count);
+           
+            
+
+
+
+          
+
             Console.WriteLine("ID     NAME    GROUP  Course avrg. ");
             for (int i = 0; i < students.Count; i++)
             {
@@ -103,5 +113,23 @@ namespace Labra3
         public string ID { get; set; }
         public string Group { get; set; }
         public double GradeAverage { get; set; }
+
+        static public string[] names = new string[100];
+         int i;
+        public string this[int i]
+        {
+            get
+            {
+                Console.WriteLine(i);
+                return names[i];
+                i++;
+            }
+            set
+            {
+                names[i] = Name;
+            }
+           
+        }
+
     }
 }
