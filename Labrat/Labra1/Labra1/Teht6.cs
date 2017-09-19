@@ -14,7 +14,7 @@ namespace Labra1
             double fuel;
             double price;
             const double usagePer100 = 7.2;
-            const double pricePerLiter = 5.595;
+            const double pricePerLiter = 1.595;
             Console.WriteLine("Ajettu matka: ");
             
             distance = float.Parse(Console.ReadLine());

@@ -15,7 +15,7 @@ namespace Labra1
             numbers = new int[3];
 
             int biggestNumber;
-            biggestNumber = 0;
+            biggestNumber = int.MinValue;
             Console.WriteLine("Anna kolme numeroa:");
 
             for(int i =0;i < 3; i++)
