@@ -116,6 +116,8 @@ namespace Labra1
             area[5, 5] = '.';
             while (Alive)
             {
+
+
                 //Timer for "game ticks"
                 t.Start();
                 TimeSpan ts = t.Elapsed;
