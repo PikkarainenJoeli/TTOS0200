@@ -11,24 +11,42 @@ namespace Labra3
     {
         public void TVMain()
         {
-           
+            Console.WriteLine("TV");
 
-            TV myTV = new TV();
-                Console.WriteLine("TV");
+            TV myTV = new TV();              
                 myTV.Volume = 50;
                 myTV.Channel = 1;
                 myTV.IsOn = true;
                 myTV.DimensionX = 20;
                 myTV.DimensionY = 10;
+            TV.TVArray[0] = myTV; // initialize this inside the class.
+
+            TV myBiggerTV = new TV();
+            myBiggerTV.Volume = 100;
+            myBiggerTV.Channel = 2;
+            myBiggerTV.IsOn = true;
+            myBiggerTV.DimensionX = 40;
+            myBiggerTV.DimensionY = 20;         
+
+            Console.Write("Mitä TVtä katsotaan? ");          
+ 
+            TV SelectedTV = myBiggerTV;
+            
+            var selected = Console.ReadLine();
+
+                           
+            Console.WriteLine("TVArray: "+TV.TVArray[0].Volume);
+            Console.ReadLine();
 
 
-            while (myTV.IsOn)
+
+
+            while (SelectedTV.IsOn)
             {
-                myTV.showProdcast(myTV);
-                myTV.useRemote(myTV);
+                TV.showProdcast(SelectedTV);
+                TV.useRemote(SelectedTV);
             }
-
-
+           
             Console.WriteLine("End of MAIN");
         }
 
@@ -36,6 +54,8 @@ namespace Labra3
 
     public class TV
     {
+        static public TV[] TVArray =  new TV[10];
+
         public int DimensionX {get;set;}
         public int DimensionY { get; set; }
 
@@ -57,56 +77,56 @@ namespace Labra3
 
         }
 
-        public void showProdcast(TV myTV)
+        public static void showProdcast(TV UsedTV)
         {
             Console.Clear();
-            for(int i =0;i < myTV.DimensionX; i++) { Console.Write("*"); }
+            for(int i =0;i < UsedTV.DimensionX; i++) { Console.Write("*"); }
             Console.WriteLine("");
-            for (int i = 0; i < myTV.DimensionY; i++)
+            for (int i = 0; i < UsedTV.DimensionY; i++)
             {
-                if(i == myTV.DimensionY/2)
+                if(i == UsedTV.DimensionY/2)
                 {
                     Console.Write("");
-                    for (int j = 0; j < (myTV.DimensionX-8)/3; j++) { Console.Write(" "); }
+                    for (int j = 0; j < (UsedTV.DimensionX-8)/3; j++) { Console.Write(" "); }
                     Console.Write(" ");
-                    Console.WriteLine("Prodcast "+ myTV.Channel);
+                    Console.WriteLine("Prodcast "+ UsedTV.Channel);
                 }
                 else { Console.WriteLine(""); }
             }
-            for (int i = 0; i < myTV.DimensionX; i++) { Console.Write("*"); }Console.WriteLine("");
+            for (int i = 0; i < UsedTV.DimensionX; i++) { Console.Write("*"); }Console.WriteLine("");
         }
 
-            public void useRemote(TV myTV)
+            public static void useRemote(TV UsedTV)
             {
             
                 int remoteButton;
                 bool goodButton;
 
-                    if(myTV.IsOn == false)
+                    if(UsedTV.IsOn == false)
                 {
-                    myTV.IsOn = true;
+                UsedTV.IsOn = true;
                 }
                     Console.WriteLine("REMOTE COMMANDS");
                     Console.WriteLine("0 turnoff");
-                    Console.WriteLine("1 volume: " + myTV.Volume);
-                    Console.WriteLine("2 channel: " + myTV.Channel);
+                    Console.WriteLine("1 volume: " + UsedTV.Volume);
+                    Console.WriteLine("2 channel: " + UsedTV.Channel);
 
                 while (goodButton = int.TryParse(Console.ReadLine(), out remoteButton) == false);
            
             switch (remoteButton)
                 {
                 case 0:
-                    myTV.IsOn = false;
+                    UsedTV.IsOn = false;
                     break;
 
                 case 1:
                     Console.Write("Set Volume ");
-                    myTV.Volume = int.Parse(Console.ReadLine());
+                    UsedTV.Volume = int.Parse(Console.ReadLine());
                         break;
 
                 case 2:
                     Console.Write("Set Channel ");
-                    myTV.Channel = int.Parse(Console.ReadLine());
+                    UsedTV.Channel = int.Parse(Console.ReadLine());
                     break;
             }
           
