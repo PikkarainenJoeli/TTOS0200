@@ -82,7 +82,7 @@ namespace SnakeAI
                 List<int> OldY = new List<int>();
                 List<int> OldX = new List<int>();
                 
-                int[,] oldSpaces = new int[2000, 2];
+                int[,] oldSpaces = new int[100000, 2];
                 double TimeElapsed;
                 bool Alive = true;
                 Random rnd = new Random();
@@ -93,20 +93,15 @@ namespace SnakeAI
             GmPrms.dirString = "O";
             GmPrms.vert = 0;
             GmPrms.hor = 0;     
-            GmPrms.currentHor = 5;
+            GmPrms.currentHor = 11;
             GmPrms.currentVert = 5;
-
                 System.Timers.Timer timer = new System.Timers.Timer();
                 timer.Enabled = true;
                 timer.Start();
                 Stopwatch t = new Stopwatch();
                 // riviä, saraketta
-                //vert hor
-           
-
+                //vert hor          
                 char[,] area = new char[MoveParams.rows, MoveParams.columns];
-
-
                 for (int i = 0; i < area.GetLength(0); i++)// tehdään sarake 1,2,3
                 {
                     for (int j = 0; j < area.GetLength(1); j++) // rivi sarake 1,2,3
@@ -114,17 +109,13 @@ namespace SnakeAI
                         area[i, j] = '.';
                     }
                 }
-
-                area[5, 5] = 's';
-
-
+                area[GmPrms.currentVert, GmPrms.currentHor] = 's';
                 int score = 0;
                 int y = 0;
                 
                 //empty needed to not remove the actual head, y -1 index would go out of index in the 1st loop.
                 OldY.Add(0);
                 OldX.Add(0);
-
 
                 int NewScoreVert = rnd.Next(0, MoveParams.rows);
                 int NewScoreHort = rnd.Next(0, MoveParams.columns);
@@ -133,37 +124,43 @@ namespace SnakeAI
                 NewScoreHort = 3;
                 area[NewScoreVert, NewScoreHort] = 'o';
 
-                //area[NewScoreVert, NewScoreHort] = 'o'; // first point to collect
-
-
                 GmPrms.paused = false;
                 display(area, GmPrms.dirString);
                 Console.WriteLine("Press any direction to start, Space to pause");
                 Console.ReadKey();
 
-                area[5, 5] = '.';
+                area[GmPrms.currentVert, GmPrms.currentHor] = '.';
                 while (Alive)
                 {
-
                     //Timer for "game ticks"
                     t.Start();
                     TimeSpan ts = t.Elapsed;
                     TimeElapsed = ts.Milliseconds;
-
-                    //GetKeyPress(GmPrms);
-
-                    UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
-
-                if (TimeElapsed > 35)// new game tick every x milliseconds.
+                
+                if (TimeElapsed > 10)// new game tick every x milliseconds.
                     {
-                        t.Reset();
+                    //GetKeyPress(GmPrms);
+                    FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
+                    //UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
+                    t.Reset();
                         TimeElapsed = 0;
 
                         //game "Game Over" instead of program chrasing
-                        if ((GmPrms.currentVert + GmPrms.vert < 0 || GmPrms.currentVert + GmPrms.vert > MoveParams.rows - 1) || (GmPrms.currentHor + GmPrms.hor < 0 || GmPrms.currentHor + GmPrms.hor > MoveParams.columns - 1))
+                        if ((GmPrms.currentVert + GmPrms.vert < 0 || GmPrms.currentVert + GmPrms.vert > MoveParams.rows - 1) || (GmPrms.currentHor + GmPrms.hor < 0 || GmPrms.currentHor + GmPrms.hor > MoveParams.columns - 1 || area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == '█'))
                         {
-                            Console.WriteLine("Game Over");
-                            Console.ReadLine();
+                        Console.WriteLine("Game Over");
+                        area[GmPrms.currentVert, GmPrms.currentHor] = 'E';
+                        display(area, GmPrms.dirString);
+                        Console.WriteLine(" Score:" + score);
+                        Console.WriteLine(GmPrms.currentVert + " " + GmPrms.currentHor);
+                        Console.Write("oldY:" + OldY[OldY.Count - 1]);
+                        Console.Write(" oldX: " + OldX[OldX.Count - 1]);
+                        Console.WriteLine();
+                        Console.Write("hor: " + GmPrms.hor + " vert:" + GmPrms.vert);
+                        Console.WriteLine("  next score at: " + "Y: " + NewScoreVert + " X: " + NewScoreHort);// + area[NewScoreVert, NewScoreHort]);
+                        Console.WriteLine("Current Y " + GmPrms.currentVert + " Current X " + GmPrms.currentHor);
+                        Console.WriteLine(y);
+                        Console.ReadLine();
                             Main();
                         }
 
@@ -183,12 +180,7 @@ namespace SnakeAI
                             //Console.ReadLine();
                         }
 
-                        if (area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == '█')
-                        {
-                            Console.WriteLine("GAME OVER");
-                            Console.ReadLine();
-                            Main();
-                        }
+
 
                         //draw new head space and remove too much latest tail at index y - score
                         area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] = '█'; // places of new head
@@ -209,8 +201,8 @@ namespace SnakeAI
                         { 
                         }
 
-                        display(area, GmPrms.dirString);
-                        Console.WriteLine(" Score:" + score);
+                    display(area, GmPrms.dirString);
+                    Console.WriteLine(" Score:" + score);
                     Console.WriteLine(GmPrms.currentVert + " " + GmPrms.currentHor);
                     Console.Write("oldY:"+OldY[OldY.Count-1]);
                     Console.Write(" oldX: "+OldX[OldX.Count-1]);
@@ -218,8 +210,7 @@ namespace SnakeAI
                     Console.Write("hor: " + GmPrms.hor + " vert:" + GmPrms.vert);
                     Console.WriteLine("  next score at: " + "Y: " + NewScoreVert + " X: " + NewScoreHort);// + area[NewScoreVert, NewScoreHort]);
                     Console.WriteLine("Current Y " + GmPrms.currentVert + " Current X " + GmPrms.currentHor);
-                    //Console.WriteLine(area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor]);
-                    //Console.ReadLine();
+                    Console.WriteLine(y);
                     y++;
                 }
             }
@@ -289,7 +280,6 @@ namespace SnakeAI
 
                 else if (GmPrms.dirString == "Down" && area[GmPrms.currentVert + GmPrms.vert , GmPrms.currentHor + GmPrms.hor] == '█')//Dodge own tail
                 {
-
                     MoveParams.ChangeDir("Left", GmPrms);
                 }
 
@@ -297,6 +287,7 @@ namespace SnakeAI
                 {
                     MoveParams.ChangeDir("Left", GmPrms);
                 }
+
 
                 //Go to catch score
                 else if (GmPrms.dirString == "Up" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor > NewScoreHort && area[GmPrms.currentVert,GmPrms.currentHor-1] != '█')// if moving up and the score is on the same row and left of you turn there
@@ -372,6 +363,7 @@ namespace SnakeAI
                         {
                             MoveParams.ChangeDir("Up", GmPrms);
                         }
+                        else { MoveParams.ChangeDir("Up", GmPrms); }
                     }
                 }
 
@@ -404,7 +396,58 @@ namespace SnakeAI
             }
 
         }
+        public static void FailProofAI(char[,] area, MoveParams GmPrms, int y, int NewScoreVert, int NewScoreHort)
+        {
+            if (y == 0)
+            {
+                MoveParams.ChangeDir("Down",GmPrms);
 
+            }
+
+            switch (GmPrms.dirString)
+            {
+                case "Up":
+                    if (GmPrms.dirString == "Up" && GmPrms.currentVert + GmPrms.vert < 0)
+                    {
+                        MoveParams.ChangeDir("Right", GmPrms);
+                    }
+                break;
+
+                case "Right":
+                    if (GmPrms.dirString == "Right" && GmPrms.currentVert - 1 < 0)
+                    {
+                        MoveParams.ChangeDir("Down", GmPrms);
+                    }
+                    if (GmPrms.dirString == "Right" && GmPrms.currentVert + 3 > MoveParams.rows)
+                    {
+                        MoveParams.ChangeDir("Up", GmPrms);
+                    }
+
+                    break;
+
+                case "Down":
+                    if (GmPrms.dirString == "Down" && GmPrms.currentVert + GmPrms.vert > MoveParams.rows-2 && GmPrms.currentHor + 1 < MoveParams.columns)
+                    {
+                        MoveParams.ChangeDir("Right", GmPrms);
+                    }
+                    else if(GmPrms.currentVert + GmPrms.vert > MoveParams.rows-1)
+                    {
+                        MoveParams.ChangeDir("Left", GmPrms);
+                    }
+                    break;
+
+                case "Left":
+                    if (GmPrms.currentHor + GmPrms.hor < 0)
+                    {
+                        MoveParams.ChangeDir("Up", GmPrms);
+                    }
+                    break;
+
+            }
+
+
+
+        }
 
         public static void GetKeyPress(MoveParams GmPrms)
         {
