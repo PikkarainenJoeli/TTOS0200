@@ -42,7 +42,7 @@ namespace SnakeAI
                     GmPrms.hor = 0;
                     GmPrms.dirString = "Up";
                 }
-                if (newDir == "Down" && GmPrms.dirString != "Right")
+                if (newDir == "Down" && GmPrms.dirString != "Up")
                 {
                     GmPrms.vert = 1;
                     GmPrms.hor = 0;
@@ -248,13 +248,13 @@ namespace SnakeAI
                         MoveParams.ChangeDir("Left", GmPrms);
                     }
 
-                    else if(GmPrms.currentHor == NewScoreHort)
+                    else if (GmPrms.currentHor == NewScoreHort)
                     {
                         if (GmPrms.currentHor - 1 < 0)
                         {
                             MoveParams.ChangeDir("Right", GmPrms);
                         }
-                        else if(GmPrms.currentHor + 1 < MoveParams.columns)
+                        else if (GmPrms.currentHor + 1 < MoveParams.columns)
                         {
                             MoveParams.ChangeDir("Left", GmPrms);
                         }
@@ -263,7 +263,7 @@ namespace SnakeAI
 
                 else if (GmPrms.dirString == "Down" && GmPrms.currentVert + GmPrms.vert > MoveParams.rows - 1)//Dodge Bottom wall....
                 {
-                    
+
                     //...To the direction of the score
                     if (GmPrms.currentHor < NewScoreHort)
                     {
@@ -287,23 +287,34 @@ namespace SnakeAI
 
                 }
 
-                //Go to catch score
-                else if (GmPrms.dirString == "Up" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor > NewScoreHort)// if moving up and the score is on the same row and left of you turn there
+                else if (GmPrms.dirString == "Down" && area[GmPrms.currentVert + GmPrms.vert , GmPrms.currentHor + GmPrms.hor] == '█')//Dodge own tail
+                {
+
+                    MoveParams.ChangeDir("Left", GmPrms);
+                }
+
+                else if (GmPrms.dirString == "Up" && area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == '█')//Dodge own tail
                 {
                     MoveParams.ChangeDir("Left", GmPrms);
                 }
 
-                else if (GmPrms.dirString == "Up" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor < NewScoreHort)// if moving up and the score is on the same row and right of you turn there
+                //Go to catch score
+                else if (GmPrms.dirString == "Up" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor > NewScoreHort && area[GmPrms.currentVert,GmPrms.currentHor-1] != '█')// if moving up and the score is on the same row and left of you turn there
+                {
+                    MoveParams.ChangeDir("Left", GmPrms);
+                }
+
+                else if (GmPrms.dirString == "Up" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor < NewScoreHort && area[GmPrms.currentVert, GmPrms.currentHor + 1] != '█')// if moving up and the score is on the same row and right of you turn there
                 {
                     MoveParams.ChangeDir("Right", GmPrms);
                 }
 
-                else if (GmPrms.dirString == "Down" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor > NewScoreHort)// if moving down and the score is on the same row and left of you turn there
+                else if (GmPrms.dirString == "Down" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor > NewScoreHort && area[GmPrms.currentVert, GmPrms.currentHor - 1] != '█')// if moving down and the score is on the same row and left of you turn there
                 {
                     MoveParams.ChangeDir("Left", GmPrms);
                 }
 
-                else if (GmPrms.dirString == "Down" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor < NewScoreHort)// if moving down and the score is on the same row and right of you turn there
+                else if (GmPrms.dirString == "Down" && GmPrms.currentVert == NewScoreVert && GmPrms.currentHor < NewScoreHort && area[GmPrms.currentVert, GmPrms.currentHor + 1] != '█')// if moving down and the score is on the same row and right of you turn there
                 {
                     MoveParams.ChangeDir("Right", GmPrms);
                 }
@@ -338,9 +349,8 @@ namespace SnakeAI
 
                 }
 
-               else if (GmPrms.dirString == "Right" && GmPrms.currentHor + GmPrms.hor > MoveParams.columns -1) // Dodge right wall...
+                else if (GmPrms.dirString == "Right" && GmPrms.currentHor + GmPrms.hor > MoveParams.columns -1) // Dodge right wall...
                 {
-                    Console.ReadLine();
                     //... To the direction of the score
                     if (GmPrms.currentVert < NewScoreVert)
                     {
@@ -348,6 +358,7 @@ namespace SnakeAI
                     }
                     else if (GmPrms.currentVert > NewScoreVert)
                     {
+
                         MoveParams.ChangeDir("Up", GmPrms);
                     }
 
@@ -363,28 +374,32 @@ namespace SnakeAI
                         }
                     }
                 }
-                    //Go to catch score
-                    else if (GmPrms.dirString == "Left" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert < NewScoreVert)// if moving left and the score is on the same column and up of you turn there
-                    {
-                        MoveParams.ChangeDir("Down", GmPrms);
-                    }
-                    else if (GmPrms.dirString == "Right" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert < NewScoreVert)// if moving right and the score is on the same column and up of you turn there
-                    {
-                        MoveParams.ChangeDir("Down", GmPrms);
-                    }
 
-                    else if (GmPrms.dirString == "Left" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert > NewScoreVert)// if moving left and the score is on the same column and up of you turn there
-                    {
-                        MoveParams.ChangeDir("Up", GmPrms);
-                    }
+                else if (area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == '█')//Dodge own tail
+                {
+                    MoveParams.ChangeDir("Up", GmPrms);
+                }
 
-                    else if (GmPrms.dirString == "Right" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert > NewScoreVert)// if moving right and the score is on the same column and up of you turn there
-                    {
-                        MoveParams.ChangeDir("Up", GmPrms);
-                    }
+                //Go to catch score
+                else if (GmPrms.dirString == "Right" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert > NewScoreVert && area[GmPrms.currentVert -1, GmPrms.currentHor] != '█')// if moving right and the score is on the same row and left of you turn there
+                {
+                    MoveParams.ChangeDir("Up", GmPrms);
+                }
 
+                else if (GmPrms.dirString == "Right" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert < NewScoreVert && area[GmPrms.currentVert + 1, GmPrms.currentHor] != '█')// if moving right and the score is on the same row and left of you turn there
+                {
+                    MoveParams.ChangeDir("Down", GmPrms);
+                }
 
+                else if (GmPrms.dirString == "Left" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert > NewScoreVert && area[GmPrms.currentVert - 1, GmPrms.currentHor] != '█')// if moving left and the score is on the same row and left of you turn there
+                {
+                    MoveParams.ChangeDir("Up", GmPrms);
+                }
 
+                else if (GmPrms.dirString == "Left" && GmPrms.currentHor == NewScoreHort && GmPrms.currentVert < NewScoreVert && area[GmPrms.currentVert + 1, GmPrms.currentHor] != '█')// if moving left and the score is on the same row and left of you turn there
+                {
+                    MoveParams.ChangeDir("Down", GmPrms);
+                }
 
             }
 
