@@ -12,7 +12,7 @@ namespace Labra3
     {
         public void StudentsMain()
         {
-
+            string name1 = "abc";
             Student Heikki = new Student();
             Student Maisa = new Student();
             Student Ossi = new Student();
@@ -22,7 +22,7 @@ namespace Labra3
             Heikki.ID = "L9201";
             Heikki.Group = "ABC17K1";
             Heikki.GradeAverage = 4.5;
-            Student.names[0] = Heikki.Name;
+            //Student.names[0] = Heikki.Name;
 
             Maisa.Name = "Maisa";
             Maisa.ID = "L9202";
@@ -54,7 +54,7 @@ namespace Labra3
                 students[0].Add(field.GetValue(Heikki).ToString());
             }
 
-            /*List architecture planned, every student is a list in a list [ID,Name, Group]
+            /*List architecture planned, every students data is a list in a list [ID,Name, Group]
              
             ID |  Name | Group | Course Avrg.
      Name1
