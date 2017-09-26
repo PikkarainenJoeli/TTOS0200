@@ -137,11 +137,13 @@ namespace SnakeAI
                     TimeSpan ts = t.Elapsed;
                     TimeElapsed = ts.Milliseconds;
                 
-                if (TimeElapsed > 10)// new game tick every x milliseconds.
+                if (TimeElapsed > 100)// new game tick every x milliseconds.
                     {
                     //GetKeyPress(GmPrms);
-                    FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
-                    //UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
+                    //FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
+                    UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
+                    //SwitchCaseAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
+
                     t.Reset();
                         TimeElapsed = 0;
 
@@ -164,16 +166,16 @@ namespace SnakeAI
                             Main();
                         }
 
-                        if (area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == 'o')
+                        if (GmPrms.currentVert == NewScoreVert && GmPrms.currentHor == NewScoreHort)//(area[GmPrms.currentVert + GmPrms.vert, GmPrms.currentHor + GmPrms.hor] == 'o')
                         {
                             score++;
 
-                            do// let's make new location for collectable, its good when its not in the snake.
-                            {
-                                NewScoreVert = rnd.Next(0, MoveParams.rows);
-                                NewScoreHort = rnd.Next(0, MoveParams.columns);
+                        do// let's make new location for collectable, its good when its not in the snake.
+                        {
+                            NewScoreVert = rnd.Next(0, MoveParams.rows);
+                            NewScoreHort = rnd.Next(0, MoveParams.columns);
 
-                            } while (area[NewScoreVert, NewScoreHort] == '█');
+                        } while (GmPrms.currentHor == NewScoreHort && GmPrms.currentVert == NewScoreVert || area[NewScoreVert, NewScoreHort] == '█');
 
                             area[NewScoreVert, NewScoreHort] = 'o';
                             //Console.WriteLine("next score at function: " + NewScoreVert + " " + NewScoreHort +"          "+ area[NewScoreVert, NewScoreHort]);
@@ -208,9 +210,9 @@ namespace SnakeAI
                     Console.Write(" oldX: "+OldX[OldX.Count-1]);
                     Console.WriteLine();
                     Console.Write("hor: " + GmPrms.hor + " vert:" + GmPrms.vert);
-                    Console.WriteLine("  next score at: " + "Y: " + NewScoreVert + " X: " + NewScoreHort);// + area[NewScoreVert, NewScoreHort]);
+                    Console.WriteLine("  next score at: " + "Y: " + NewScoreVert + " X: " + NewScoreHort + area[NewScoreVert, NewScoreHort]);// + area[NewScoreVert, NewScoreHort]);
                     Console.WriteLine("Current Y " + GmPrms.currentVert + " Current X " + GmPrms.currentHor);
-                    Console.WriteLine(y);
+                    //Console.WriteLine();
                     y++;
                 }
             }
@@ -448,7 +450,55 @@ namespace SnakeAI
 
 
         }
+        public static void SwitchCaseAI(char[,] area, MoveParams GmPrms, int y, int NewScoreVert, int NewScoreHort)
+        {
+            if (y == 0)
+            {
+                MoveParams.ChangeDir("Up", GmPrms);
+            }
 
+            switch (GmPrms.dirString)
+            {
+                case "Up"://------------------------------------------------------------------------
+                    if(GmPrms.currentVert + GmPrms.vert < 0)
+                    {
+                        /* if (GmPrms.currentHor < NewScoreHort)
+                         {
+                             MoveParams.ChangeDir("Right", GmPrms);
+                         }*/
+                        MoveParams.ChangeDir("Left", GmPrms);
+                        /*else if (GmPrms.currentHor > NewScoreHort)
+                        {
+                            MoveParams.ChangeDir("Left", GmPrms);
+                        }*/
+
+                    }
+                    
+                    break;
+
+                case "Down"://------------------------------------------------------------------------
+                    if (GmPrms.currentVert + GmPrms.vert > MoveParams.rows-1)
+                    {
+                        MoveParams.ChangeDir("Right", GmPrms);
+                    }
+                    break;
+
+                case "Left"://------------------------------------------------------------------------
+
+                    if (GmPrms.currentHor + GmPrms.hor < 0)
+                    {
+                        MoveParams.ChangeDir("Down", GmPrms);
+                    }
+                        break;
+
+                case "Right"://------------------------------------------------------------------------
+                    if (GmPrms.currentHor + GmPrms.hor > MoveParams.columns-1)
+                    {
+                        MoveParams.ChangeDir("Up", GmPrms);
+                    }
+                    break;
+            }
+        }
         public static void GetKeyPress(MoveParams GmPrms)
         {
             if (GetAsyncKeyState(38) != 0 && GmPrms.dirString != "Down")
