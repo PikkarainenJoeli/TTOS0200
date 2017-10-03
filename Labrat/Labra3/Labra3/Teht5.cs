@@ -38,7 +38,8 @@ namespace Labra3
             Kaisa.ID = "L9205";
             Kaisa.Group = "ABC17K2";
             Kaisa.GradeAverage = 3.9;
-            Console.WriteLine("String "+Student.names[0]);
+
+            Console.WriteLine("NAMEEES 0 "+Student.names[0]);
 
             List<List<string>> students = new List<List<string>>();
 
