@@ -137,7 +137,7 @@ namespace SnakeAI
                     TimeSpan ts = t.Elapsed;
                     TimeElapsed = ts.Milliseconds;
                 
-                if (TimeElapsed > 100)// new game tick every x milliseconds.
+                if (TimeElapsed > 50)// new game tick every x milliseconds.
                     {
                     //GetKeyPress(GmPrms);
                     //FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
