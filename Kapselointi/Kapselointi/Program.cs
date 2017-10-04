@@ -40,10 +40,46 @@ namespace Kapselointi
     {
         static void Main(string[] args)
         {
-            Thing t = new Thing();
+            /*Thing t = new Thing();
             t.Name = "jotain";
             Console.WriteLine(t.Name);
-            Console.WriteLine(t.ToString());
+            Console.WriteLine(t.ToString());*/
+
+            //Student olion testaus
+
+            Student s = new Student();
+            s.FirstName = "Esa";
+            s.LastName = "Salmik";
+
+            Student s2 = new Student("Jaska" , "Jokunen");
+            //luodaan kokoelma Student-olioita, käytetään List<>
+            List<Student> students = new List<Student>();
+            students.Add(s);
+            students.Add(s2);
+
+            students.Add(new Student("Arska","Aaltonen"));
+            students.Add(new Student("Arska", "Aaltonen"));
+
+            //Näytetään oppilaat
+
+            //forilla
+            for (int i = 0; i < students.Count; i++)
+            {
+                Console.WriteLine(students[i]);
+            }
+            Console.WriteLine("");
+            foreach(Student stud in students)
+            {
+                Console.WriteLine(stud.ToString());
+            }
+            Console.WriteLine("");
+
+            //Testataa Group luokka
+            Group luokka = new Group();
+            luokka.Name = "TTV16S1";
+            luokka.Students.Add(new Student("Anna", "Aurinko"));
+            Console.WriteLine(luokka.ToString());
+            
         }
     }
 }
