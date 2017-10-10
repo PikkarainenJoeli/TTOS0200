@@ -17,7 +17,7 @@ namespace Labra5
 
 
 
-            Employee John = new Employee();
+            Employee John = new Employee(");
             John.Name = "John";
             John.Salary = 2000;
             John.Profession = "Mechanic";
@@ -34,13 +34,17 @@ namespace Labra5
 
 
             Console.WriteLine("Name    Profession   Salary     Car      Bonus");
+            Console.WriteLine(Worker.workerNames[0]+Tim.Bonus + Tim.Car);
+            Console.WriteLine(Mary.Name);
 
-            Worker[] workerArray = new Worker[3];
+            /*Worker[] workerArray = new Worker[3];
             workerArray[0] = Tim;
             workerArray[1] = Mary;
             workerArray[2] = Tim;
 
-            List<Worker> listWorkers = workerArray.ToList();
+            List<Worker> listWorkers = workerArray.ToList();*/
+
+
             
            /* for(int i = 0;i> workerArray.Length;i++)
 
@@ -64,9 +68,13 @@ namespace Labra5
         public string Name { get; set; }
         public int Salary { get; set; }
         public string Profession { get; set; }
-        public List<string> workerNames = new List<string>();
+        public static List<string> workerNames = new List<string>();
         
 
+        public Worker(string Name)
+        {
+            workerNames.Add(Name);    
+        }
         public static List<List<string>> InitTable()
         {
 
@@ -102,10 +110,8 @@ namespace Labra5
 
         public Boss(int Bonus,string Car)
         {
-            Console.WriteLine(Bonus);
-            int bonari;
-            bonari = this.Bonus;
-            Console.WriteLine(bonari);
+            this.Bonus = Bonus;
+            this.Car = Car;
         }
     }
 
