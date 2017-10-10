@@ -137,11 +137,11 @@ namespace SnakeAI
                     TimeSpan ts = t.Elapsed;
                     TimeElapsed = ts.Milliseconds;
                 
-                if (TimeElapsed > 100)// new game tick every x milliseconds.
+                if (TimeElapsed > 15)// new game tick every x milliseconds.
                     {
                     //GetKeyPress(GmPrms);
-                    //FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
-                    UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
+                    FailProofAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
+                    //UseAI(area,GmPrms, y,NewScoreVert, NewScoreHort);
                     //SwitchCaseAI(area, GmPrms, y, NewScoreVert, NewScoreHort);
 
                     t.Reset();
@@ -217,6 +217,7 @@ namespace SnakeAI
                 }
             }
         }
+
 
         public static void UseAI(char[,] area,MoveParams GmPrms,int y, int NewScoreVert, int NewScoreHort)
         {
@@ -521,6 +522,25 @@ namespace SnakeAI
             }
             
             else if (GetAsyncKeyState(32) != 0 && GmPrms.paused == false) {; Console.ReadKey(); }
+            
+        }
+        public static void Tree(char[,] area, MoveParams GmPrms, int y, int NewScoreVert, int NewScoreHort)
+        {
+
+        }
+
+       
+    }
+
+    public static class TreeNode<Node>
+    {
+        public static int ID { get; set; }
+        public static string dir { get; set; }
+        public static int parentOff { get; set; }
+        public static int childOff { get; set; }
+
+        public static void AddChild()
+        {
             
         }
     }
