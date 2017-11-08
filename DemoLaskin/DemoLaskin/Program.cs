@@ -32,6 +32,7 @@ namespace DemoLaskin
             if (number2 == 0)
                 return 0;
             else
+
             return number1 / number2;
         }
     }
