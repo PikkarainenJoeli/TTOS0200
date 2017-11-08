@@ -30,11 +30,13 @@ namespace Labra9
 
             for (int i = 0; i < numbers; i++)
             {             
-                tempNumber = rnd.Next(1,this.diceSides);
+                tempNumber = rnd.Next(1,this.diceSides +1);
                 newNumbers.Add(tempNumber);
                 total += tempNumber;
 
-                if (tempNumber == 1)
+                valuesCounts[tempNumber -1] += 1;
+
+               /* if (tempNumber == 1)
                 {
                     valuesCounts[0]++;
                 }
@@ -58,15 +60,13 @@ namespace Labra9
                 {
                     valuesCounts[5]++;
                 }
-
+                */
             }
             average = total / numbers;
             //Console.WriteLine("Total: " + total + " Average: "+ average.ToString("0.00"));
             return average;
         }
-
-        
-
+     
     }
 
 
@@ -78,7 +78,7 @@ namespace Labra9
             Console.Write("Monta numeroa arvotaan?: ");
             numbers = int.Parse(Console.ReadLine());
 
-            Dice myDice = new Dice(6);
+           Dice myDice = new Dice(6);
            float Average = myDice.getNewNumbers(numbers);
 
             for (int i = 0; i < myDice.valuesCounts.Length; i++)

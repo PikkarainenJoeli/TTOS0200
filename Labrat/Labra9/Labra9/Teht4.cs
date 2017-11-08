@@ -14,7 +14,7 @@ namespace Labra9
 
             public Shapes()
             {
-                ShapesList.Add();
+                //ShapesList.Add();
             }
         }
 
@@ -106,10 +106,10 @@ namespace Labra9
                 square2.area(10);
                 square3.area(15);
 
-                foreach (Shape item in )
+                /*foreach (Shape item in )
                 {
 
-                }
+                }*/
 
 
             }
