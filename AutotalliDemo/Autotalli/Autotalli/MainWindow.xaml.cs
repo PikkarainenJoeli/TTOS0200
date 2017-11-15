@@ -29,13 +29,18 @@ namespace Autotalli
             cars = Carage.GetCars();
             ShowPic("autotalli.png");
 
+            /*
             List<string> carBrands = new List<string>();
-
             foreach (var s in cars)
             {
                 carBrands.Add(s.Brand);
-            }
-            cmbCarList.ItemsSource = carBrands;
+            }*/
+            
+
+            var result = cars.Select(m => m.Brand).Distinct();
+
+            cmbCarList.ItemsSource = result;
+
         }
 
         private void btnGetCars(object sender, RoutedEventArgs e)

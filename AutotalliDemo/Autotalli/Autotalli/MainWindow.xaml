@@ -14,7 +14,7 @@
         <StackPanel HorizontalAlignment="Left" Height="262" Margin="10,47,0,0" VerticalAlignment="Top" Width="497">
             <StackPanel HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="497" Orientation="Horizontal">
                 <Button x:Name="btnGetCar" Content="Hae auto" Margin="5" Click="btnGetCars"/>
-                <Button x:Name="btnGetAudis" Content="Hae Audit" Margin="5" Click="btnGetAudisClick"/>
+                <Button x:Name="btnGetAudis" Content="Hae Merkillä" Margin="5" Click="btnGetAudisClick"/>
                 <ComboBox x:Name="cmbCarList" Width="120"/>
 
             </StackPanel>
