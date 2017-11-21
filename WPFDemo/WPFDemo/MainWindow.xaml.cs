@@ -52,7 +52,7 @@ namespace WPFDemo
             
             
 
-            if (color == "Red")
+            /*if (color == "Red")
             {
                 Brush myBrush = Brushes.Red;
                 TBl1.Foreground = myBrush;
@@ -66,10 +66,10 @@ namespace WPFDemo
             {
                 Brush myBrush = Brushes.Blue;
                 TBl1.Foreground = myBrush;
-            }
+            }*/
 
-            /*var brush = (Brush)converter.ConvertFromString("#FFFFFF90");
-            TBl1.Foreground = brush;*/
+            var brush = (Brush)converter.ConvertFromString(color);
+            TBl1.Foreground = brush;
         }
     }
 }

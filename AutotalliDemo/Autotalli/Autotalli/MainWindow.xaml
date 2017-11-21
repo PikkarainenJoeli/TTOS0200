@@ -1,0 +1,26 @@
+﻿<Window x:Class="Autotalli.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Autotalli"
+        mc:Ignorable="d"
+        Title="Autotalli" Height="350" Width="525">
+    <Grid>
+        
+        <!--Ulompi stackpaneli -->
+       
+        
+        <StackPanel HorizontalAlignment="Left" Height="262" Margin="10,47,0,0" VerticalAlignment="Top" Width="497">
+            <StackPanel HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" VerticalAlignment="Top" Width="497" Orientation="Horizontal">
+                <Button x:Name="btnGetCar" Content="Hae auto" Margin="5" Click="btnGetCars"/>
+                <Button x:Name="btnGetAudis" Content="Hae Merkillä" Margin="5" Click="btnGetAudisClick"/>
+                <ComboBox x:Name="cmbCarList" Width="120"/>
+
+            </StackPanel>
+            <DataGrid x:Name="dgCars" Height="108" Margin="5" SelectionChanged="dgCarsChanged"/>
+            <Image x:Name="imgCars" ></Image>
+        </StackPanel>
+
+    </Grid>
+</Window>
