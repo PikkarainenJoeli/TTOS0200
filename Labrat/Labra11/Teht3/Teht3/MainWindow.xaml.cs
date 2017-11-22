@@ -22,10 +22,19 @@ namespace Teht3
         public class Lotto
         {
 
+        private static int gameTimes = 0; //static int esim esimerrki katso howMany()
+
         public List<string> numbers = new List<string>();        
+
+
+        public static int howMany()
+        {
+            return gameTimes;
+        }
 
             public Lotto(string gameType,int draws)
             {
+            gameTimes++;
             try
             {
                  //------------------------------------------- LOTTO  
@@ -197,7 +206,8 @@ public partial class MainWindow : Window
         private void btnDrawOnClick(object sender, RoutedEventArgs e)
         {
             try
-            {                           
+            {
+                //Lotto.moi = 27;         
                 string selectedGame = cmbGames.Text.ToString();               
                 int draws = int.Parse(txtDraws.Text);            
                 Lotto game = new Lotto(selectedGame,draws);               
@@ -207,7 +217,7 @@ public partial class MainWindow : Window
                 {                  
                     txtResults.Text += i + ": " + game.numbers[i] + "\n";
                 }
-                
+                MessageBox.Show("Pelattu: " + Lotto.howMany().ToString() + " kertaa");
 
             }
             catch (Exception ex)
